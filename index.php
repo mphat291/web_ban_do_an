@@ -24,7 +24,7 @@ require_once 'config/sys_config.php';
                 <a href="logout.php" class="btn btn-secondary btn-sm ms-2">Đăng xuất</a>
             </div>
         <?php else: ?>
-            <p>Ní muốn đặt hàng hoặc quản trị hệ thống?</p>
+            <p>Bạn muốn đặt hàng hoặc quản trị hệ thống?</p>
             <a href="login.php" class="btn btn-warning text-white fw-bold">Đăng Nhập Ngay</a>
         <?php endif; ?>
         
