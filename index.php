@@ -1,6 +1,16 @@
 <?php
 // 1. Nhúng file Header dùng chung (đã bao gồm cấu hình hệ thống, session, navbar và ô tìm kiếm)
 include 'header.php';
+require_once 'config/sys_config.php';
+require_once 'config/database.php'; // Khai báo kết nối CSDL để lấy món ăn
+
+// Truy vấn lấy danh sách món ăn từ database
+try {
+    $stmt = $conn->query("SELECT * FROM products ORDER BY id DESC");
+    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    $products = [];
+}
 ?>
 
 <div id="foodSlider" class="carousel slide shadow-sm mb-5" data-bs-ride="carousel">
