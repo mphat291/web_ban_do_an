@@ -23,14 +23,14 @@ require_once 'config/sys_config.php';
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link active" href="index.php">Trang chủ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Thực đơn</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Liên hệ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="menu.php">Thực đơn</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.php">Liên hệ</a></li>
                 </ul>
                 
                 <div class="d-flex align-items-center">
-                    <form class="d-flex me-3" action="search.php" method="GET">
-                        <input class="form-control form-control-sm me-2" type="search" name="keyword" placeholder="Tìm món ăn..." aria-label="Search">
-                        <button class="btn btn-outline-warning btn-sm" type="submit">Tìm</button>
+                    <form class="d-flex me-3" action="menu.php" method="GET">
+                    <input class="form-control form-control-sm me-2" type="search" name="search" placeholder="Tìm món ăn..." value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
+                    <button class="btn btn-outline-warning btn-sm" type="submit">Tìm</button>
                     </form>
                     
                     <?php if (isset($_SESSION['user'])): ?>
