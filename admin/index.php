@@ -1,5 +1,8 @@
 <?php
+require_once 'check_admin.php';
 require_once '../config/sys_config.php';
+require_once '../config/database.php';
+// ... các đoạn code bên dưới giữ nguyên ...
 
 // Bảo mật: Nếu chưa đăng nhập hoặc không phải admin thì di chuyển ra trang login
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {

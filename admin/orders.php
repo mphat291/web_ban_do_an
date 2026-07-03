@@ -1,4 +1,6 @@
 <?php
+<?php
+require_once 'check_admin.php'; 
 require_once '../config/sys_config.php';
 require_once '../config/database.php';
 

@@ -1,6 +1,8 @@
 <?php
+require_once 'check_admin.php'; 
 require_once '../config/sys_config.php';
 require_once '../config/database.php';
+
 
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
     header('Location: ' . BASE_URL . 'login.php');
