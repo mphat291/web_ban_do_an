@@ -3,7 +3,6 @@ require_once 'config/sys_config.php';
 require_once 'config/database.php';
 
 try {
-    // PHP bây giờ chỉ làm nhiệm vụ duy nhất: Lấy hết toàn bộ món ăn mới nhất từ database lên một lần
     $sql = "SELECT * FROM products ORDER BY id DESC";
     $stmt = $conn->query($sql);
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -24,7 +23,6 @@ try {
     <?php include 'header.php'; ?>
 
     <div class="container my-5">
-        
         <div class="row align-items-center mb-5">
             <div class="col-md-6">
                 <h2 class="fw-bold text-dark m-0">🍕 THỰC ĐƠN MÓN NGON</h2>
@@ -58,7 +56,14 @@ try {
                                 </div>
                                 <div class="d-grid gap-2 mt-3">
                                     <a href="detail.php?id=<?= $p['id'] ?>" class="btn btn-sm btn-outline-secondary">Xem chi tiết</a>
-                                    <a href="add_to_cart.php?id=<?= $p['id'] ?>" class="btn btn-sm btn-warning text-white fw-bold">Thêm vào giỏ 🛒</a>
+                                    
+                                    <?php if (isset($_SESSION['user'])): ?>
+                                        <!-- Nếu đã đăng nhập thì cho thêm vào giỏ -->
+                                        <a href="add_to_cart.php?id=<?= $p['id'] ?>" class="btn btn-sm btn-warning text-white fw-bold">Thêm vào giỏ 🛒</a>
+                                    <?php else: ?>
+                                        <!-- Nếu chưa đăng nhập, bắt đăng nhập mới cho mua -->
+                                        <a href="login.php" class="btn btn-sm btn-secondary text-white fw-bold">Đăng nhập để mua</a>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
@@ -88,22 +93,19 @@ try {
                 const keyword = this.value.toLowerCase().trim();
                 let visibleCount = 0;
 
-                // Duyệt qua từng sản phẩm để kiểm tra tên bằng JavaScript
                 foodItems.forEach(function (item) {
                     const titleElement = item.querySelector('.food-card-title');
                     if (titleElement) {
                         const foodTitle = titleElement.textContent.toLowerCase();
-                        
                         if (foodTitle.includes(keyword)) {
-                            item.classList.remove('d-none'); // Hiển thị card bằng Bootstrap class
+                            item.classList.remove('d-none');
                             visibleCount++;
                         } else {
-                            item.classList.add('d-none');    // Ẩn card đi
+                            item.classList.add('d-none');
                         }
                     }
                 });
 
-                // Xử lý hiển thị/ẩn dòng chữ thông báo từ khóa tìm kiếm và nút Reset
                 if (keyword !== '') {
                     searchStatusWrapper.innerHTML = `<p class="text-muted fs-5 mb-4">Kết quả tìm kiếm cho từ khóa: <strong class="text-danger">"${this.value}"</strong></p>`;
                     resetBtn.classList.remove('d-none');
@@ -112,7 +114,6 @@ try {
                     resetBtn.classList.add('d-none');
                 }
 
-                // Nếu không có sản phẩm nào khớp, hiển thị thông báo trống tức thì
                 if (visibleCount === 0) {
                     noFoodAlert.classList.remove('d-none');
                 } else {

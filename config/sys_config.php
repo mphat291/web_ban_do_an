@@ -5,5 +5,5 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 //  Thêm đúng tên thư mục mẹ "Doancuoiky" vào đường dẫn gốc
-define('BASE_URL', '/Doancuoiky/web_ban_do_/');
+define('BASE_URL', 'http://localhost/web_ban_do_an/');
 ?>
