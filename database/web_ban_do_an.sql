@@ -167,8 +167,8 @@ INSERT INTO `products` (`id`, `category_id`, `name`, `price`, `image`, `descript
 (5, 2, 'Cơm Chiên Hải Sản Cà Mau', 50000, 'com_chien.jpg', 'Cơm chiên hạt cơm vàng giòn, tôm mực tươi ngon roi rói đánh bắt tại vùng biển Cà Mau.', '2026-07-03 16:04:52'),
 (6, 3, 'Trà Sữa Trân Châu Đường Đen', 30000, 'tra_sua.jpg', 'Trà sữa đậm vị trà, béo ngậy vị sữa cùng trân châu đen dai giòn sần sật.', '2026-07-03 16:04:52'),
 (7, 3, 'Nước Ép Cam Nguyên Chất', 20000, 'nuoc_ep.jpg', 'Nước ép từ những quả cam sành mọng nước, giàu vitamin C giải nhiệt cực tốt.', '2026-07-03 16:04:52'),
-(12, 3, 'Matchalatte', 30000, '1783097487_6a47e88f7361f.jpg', '', '2026-07-03 16:51:27'),
-(13, 3, 'Cà phê sữa', 15000, '1783098304_6a47ebc00ab2d.jpg', '', '2026-07-03 17:05:04');
+(12, 3, 'Matchalatte', 30000, '1783097487_6a47e88f7361f.jpg', 'Sự kết hợp hoàn hảo giữa bột matcha Nhật Bản thượng hạng và sữa tươi béo ngậy.', '2026-07-03 16:51:27'),
+(13, 3, 'Cà phê sữa', 15000, '1783098304_6a47ebc00ab2d.jpg', 'Cà phê phin đậm đà phong vị truyền thống, hòa quyện cùng sữa đặc ngọt ngào đầy năng lượng.', '2026-07-03 17:05:04');
 
 -- --------------------------------------------------------
 

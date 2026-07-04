@@ -18,11 +18,11 @@ try {
     <title>Thực Đơn Món Ngon - CaMau Food</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="bg-light">
+<body class="bg-light d-flex flex-column min-vh-100">
 
     <?php include 'header.php'; ?>
 
-    <div class="container my-5">
+    <div class="container my-5 flex-grow-1 d-flex flex-column">
         <div class="row align-items-center mb-5">
             <div class="col-md-6">
                 <h2 class="fw-bold text-dark m-0">🍕 THỰC ĐƠN MÓN NGON</h2>
@@ -58,10 +58,8 @@ try {
                                     <a href="detail.php?id=<?= $p['id'] ?>" class="btn btn-sm btn-outline-secondary">Xem chi tiết</a>
                                     
                                     <?php if (isset($_SESSION['user'])): ?>
-                                        <!-- Nếu đã đăng nhập thì cho thêm vào giỏ -->
                                         <a href="add_to_cart.php?id=<?= $p['id'] ?>" class="btn btn-sm btn-warning text-white fw-bold">Thêm vào giỏ 🛒</a>
                                     <?php else: ?>
-                                        <!-- Nếu chưa đăng nhập, bắt đăng nhập mới cho mua -->
                                         <a href="login.php" class="btn btn-sm btn-secondary text-white fw-bold">Đăng nhập để mua</a>
                                     <?php endif; ?>
                                 </div>
@@ -70,11 +68,13 @@ try {
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>
+        </div>
 
-            <div id="no-food-alert" class="col-12 text-center py-5 d-none">
-                <p class="text-muted fs-4">Không tìm thấy món ăn nào khớp với yêu cầu của ní hết trơn hà! 😢</p>
-                <a href="menu.php" class="btn btn-warning text-white fw-bold">Xem tất cả món ăn</a>
-            </div>
+        <div id="no-food-alert" class="flex-grow-1 d-none flex-column align-items-center justify-content-center text-center py-5">
+            <div class="mb-4" style="font-size: 5rem;">🔍😢</div>
+            <h3 class="fw-bold text-dark mb-3" style="font-size: 1.85rem;">Không tìm thấy món ăn nào khớp với yêu cầu của ní hết trơn hà!</h3>
+            <p class="text-muted mb-4 fs-5">Hãy thử tìm kiếm với một từ khóa khác xem sao nhé.</p>
+            <a href="menu.php" class="btn btn-warning btn-lg text-white fw-bold px-4 py-2 shadow-sm" style="border-radius: 8px;">Xem tất cả món ăn</a>
         </div>
     </div>
 
@@ -114,10 +114,13 @@ try {
                     resetBtn.classList.add('d-none');
                 }
 
+                // Chuyển đổi trạng thái hiển thị linh hoạt (d-flex để căn giữa dọc ngang)
                 if (visibleCount === 0) {
                     noFoodAlert.classList.remove('d-none');
+                    noFoodAlert.classList.add('d-flex');
                 } else {
                     noFoodAlert.classList.add('d-none');
+                    noFoodAlert.classList.remove('d-flex');
                 }
             });
         }

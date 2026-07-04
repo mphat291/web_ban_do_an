@@ -3,6 +3,11 @@
 require_once 'config/sys_config.php';
 require_once 'config/database.php';
 
+// Khởi động session nếu hệ thống chưa tự khởi động
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // 2. Lấy danh sách 3 món ăn mới nhất/bán chạy từ database lên trang chủ
 try {
     $stmt = $conn->query("SELECT * FROM products ORDER BY id DESC LIMIT 3");
@@ -30,14 +35,18 @@ try {
 </head>
 <body class="bg-light">
 
-    <?php if (isset($_SESSION['success_cart'])): ?>
-        <div class="container mt-3">
-            <div class="alert alert-success alert-dismissible fade show shadow-sm border-0" role="alert">
-                🎉 <b>Thành công!</b> <?= $_SESSION['success_cart']; unset($_SESSION['success_cart']); ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1100; margin-top: 65px;">
+        <?php if (isset($_SESSION['success_cart'])): ?>
+            <div id="indexCartToast" class="toast align-items-center text-white bg-success border-0 shadow" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
+                <div class="d-flex">
+                    <div class="toast-body fw-bold">
+                        🎉 Thành công! <?= $_SESSION['success_cart']; unset($_SESSION['success_cart']); ?>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
             </div>
-        </div>
-    <?php endif; ?>
+        <?php endif; ?>
+    </div>
 
     <?php include 'header.php'; ?>
 
@@ -114,5 +123,15 @@ try {
     <?php include 'footer.php'; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var toastEl = document.getElementById('indexCartToast');
+        if (toastEl) {
+            var toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        }
+    });
+    </script>
 </body>
 </html>

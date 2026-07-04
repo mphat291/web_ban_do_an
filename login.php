@@ -89,8 +89,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label class="form-label">Mật khẩu</label>
                 <input type="password" class="form-control" name="password" required placeholder="Nhập mật khẩu...">
             </div>
-            <button type="submit" class="btn btn-warning w-100 text-white fw-bold mt-2">Đăng Nhập</button>
+            <button type="submit" class="btn btn-warning w-100 text-white fw-bold mt-2">ĐĂNG NHẬP NGAY</button>
         </form>
+
+        <!-- Thêm phần link Đăng ký và Quay lại trang chủ -->
+        <div class="text-center mt-4">
+            <p class="mb-2" style="font-size: 14px;">Chưa có tài khoản? <a href="register.php" class="text-warning text-decoration-none fw-bold">Đăng ký tại đây</a></p>
+            <a href="index.php" class="text-muted text-decoration-none" style="font-size: 14px;">&larr; Quay lại trang chủ</a>
+        </div>
     </div>
 </div>
 </body>
