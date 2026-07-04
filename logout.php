@@ -14,6 +14,6 @@ if (ini_get("session.use_cookies")) {
 
 session_destroy();
 
-// Điều hướng người dùng quay lại trang đăng nhập
-header('Location: ' . BASE_URL . 'login.php');
+// 🔥 ĐÃ SỬA: Điều hướng người dùng quay lại trang chủ (index.php) thay vì login.php
+header('Location: ' . BASE_URL . 'index.php');
 exit();

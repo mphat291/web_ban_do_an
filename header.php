@@ -1,5 +1,4 @@
 <?php
-// Giữ lại cấu hình hệ thống của nhóm trưởng
 require_once 'config/sys_config.php';
 ?>
 <!DOCTYPE html>
@@ -24,15 +23,31 @@ require_once 'config/sys_config.php';
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link active" href="index.php">Trang chủ</a></li>
                     <li class="nav-item"><a class="nav-link" href="menu.php">Thực đơn</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contact.php">Liên hệ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Liên hệ</a></li>
                 </ul>
                 
-                <div class="d-flex align-items-center">
-                    <form class="d-flex me-3" action="menu.php" method="GET">
-                    <input class="form-control form-control-sm me-2" type="search" name="search" placeholder="Tìm món ăn..." value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
-                    <button class="btn btn-outline-warning btn-sm" type="submit">Tìm</button>
-                    </form>
+                <div class="d-flex align-items-center ms-auto"> 
                     
+                    <a href="cart.php" class="btn btn-outline-warning btn-sm me-3 position-relative d-flex align-items-center px-2 py-1">
+                        <span class="fs-6 me-1">🛒</span> Giỏ hàng
+                        
+                        <?php 
+                        $total_items = 0;
+                        if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
+                            foreach ($_SESSION['cart'] as $item) {
+                                // Cộng dồn số lượng của từng món ăn
+                                $total_items += isset($item['quantity']) ? $item['quantity'] : 1;
+                            }
+                        }
+                        // Nếu có sản phẩm trong giỏ thì mới hiển thị Badge số lượng màu đỏ
+                        if ($total_items > 0): 
+                        ?>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.65rem;">
+                                <?= $total_items ?>
+                            </span>
+                        <?php endif; ?>
+                    </a>
+
                     <?php if (isset($_SESSION['user'])): ?>
                         <span class="text-light me-3">Xin chào, <b class="text-warning"><?= htmlspecialchars($_SESSION['user']['fullname']) ?></b>!</span>
                         <?php if ($_SESSION['user']['role'] === 'admin'): ?>
@@ -40,7 +55,8 @@ require_once 'config/sys_config.php';
                         <?php endif; ?>
                         <a href="logout.php" class="btn btn-secondary btn-sm">Đăng xuất</a>
                     <?php else: ?>
-                        <a href="login.php" class="btn btn-warning text-white fw-bold btn-sm">Đăng Nhập</a>
+                        <a href="login.php" class="btn btn-warning text-white fw-bold btn-sm me-2">Đăng Nhập</a>
+                        <a href="register.php" class="btn btn-outline-light btn-sm fw-bold">Đăng Ký</a>
                     <?php endif; ?>
                 </div>
             </div>
