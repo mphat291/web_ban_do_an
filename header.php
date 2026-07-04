@@ -23,7 +23,7 @@ require_once 'config/sys_config.php';
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link active" href="index.php">Trang chủ</a></li>
                     <li class="nav-item"><a class="nav-link" href="menu.php">Thực đơn</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contact.php">Liên hệ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Liên hệ</a></li>
                 </ul>
                 
                 <div class="d-flex align-items-center ms-auto"> 
