@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 03, 2026 lúc 07:27 PM
+-- Thời gian đã tạo: Th7 04, 2026 lúc 03:20 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.0.30
 
@@ -20,6 +20,27 @@ SET time_zone = "+00:00";
 --
 -- Cơ sở dữ liệu: `web_ban_do_an`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `cart`
+--
+
+CREATE TABLE `cart` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `cart`
+--
+
+INSERT INTO `cart` (`id`, `user_id`, `product_id`, `quantity`) VALUES
+(1, 3, 12, 1),
+(2, 3, 7, 1);
 
 -- --------------------------------------------------------
 
@@ -67,7 +88,20 @@ CREATE TABLE `orders` (
 INSERT INTO `orders` (`id`, `user_id`, `fullname`, `phone`, `address`, `note`, `total_money`, `status`, `created_at`) VALUES
 (1, 2, 'Quản Trị Viên', '0942398774', 'p8,tp cà mau', '', 25000, 'pending', '2026-07-03 23:46:19'),
 (2, 2, 'Quản Trị Viên', '0942398774', 'p8,tp cà mau', '', 50000, 'pending', '2026-07-03 23:46:32'),
-(3, 2, 'Quản Trị Viên', '0942398774', 'p8,tp cà mau', 'ngon mới chịu', 35000, 'pending', '2026-07-04 00:24:38');
+(3, 2, 'Quản Trị Viên', '0942398774', 'p8,tp cà mau', 'ngon mới chịu', 35000, 'pending', '2026-07-04 00:24:38'),
+(4, 3, 'mphat', '0942398774', 'p8,tp cà mau', '', 30000, 'pending', '2026-07-04 18:46:56'),
+(5, NULL, 'mphat', '0942398774', 'p8,tp cà mau', '', 30000, 'pending', '2026-07-04 18:55:03'),
+(6, 2, 'Quản Trị Viên', '0942398774', 'p8,tp cà mau', '', 20000, 'pending', '2026-07-04 19:01:59'),
+(7, 2, 'Quản Trị Viên', '0942398774', 'p8,tp cà mau', '', 45000, 'pending', '2026-07-04 19:08:11'),
+(8, 2, 'Quản Trị Viên', '0942398774', 'p8,tp cà mau', '', 45000, 'pending', '2026-07-04 19:14:30'),
+(10, 2, 'Quản Trị Viên', '0942398774', 'p8,tp cà mau', '', 30000, 'pending', '2026-07-04 19:19:02'),
+(12, 2, 'Quản Trị Viên', '0942398774', 'p8,tp cà mau', '', 30000, 'pending', '2026-07-04 19:20:43'),
+(13, 2, 'Quản Trị Viên', '0942398774', 'p8,tp cà mau', '', 20000, 'pending', '2026-07-04 19:27:52'),
+(14, 2, 'mphat', '0942398774', 'p8,tp cà mau', 'ngon mới chịu', 65000, 'pending', '2026-07-04 19:29:40'),
+(15, 3, 'mphat', '0942398774', 'p8,tp cà mau', '', 30000, 'pending', '2026-07-04 19:30:12'),
+(16, 2, 'mphat', '0942398774', 'p8,tp cà mau', 'ngon', 30000, 'pending', '2026-07-04 19:39:18'),
+(17, 4, 'mphat', '0942398774', 'p8,tp cà mau', 'k ngon k chịu', 30000, 'pending', '2026-07-04 19:46:34'),
+(18, 2, 'mphat', '0942398774', 'p8,tp cà mau', '', 30000, 'pending', '2026-07-04 20:05:40');
 
 -- --------------------------------------------------------
 
@@ -90,7 +124,21 @@ CREATE TABLE `order_details` (
 INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `price`, `quantity`) VALUES
 (1, 1, 2, 25000, 1),
 (2, 2, 5, 50000, 1),
-(3, 3, 3, 35000, 1);
+(3, 3, 3, 35000, 1),
+(4, 4, 12, 30000, 1),
+(5, 5, 12, 30000, 1),
+(6, 6, 7, 20000, 1),
+(7, 7, 4, 45000, 1),
+(8, 8, 4, 45000, 1),
+(9, 10, 6, 30000, 1),
+(10, 12, 12, 30000, 1),
+(11, 13, 7, 20000, 1),
+(12, 14, 3, 35000, 1),
+(13, 14, 12, 30000, 1),
+(14, 15, 12, 30000, 1),
+(15, 16, 12, 30000, 1),
+(16, 17, 12, 30000, 1),
+(17, 18, 12, 30000, 1);
 
 -- --------------------------------------------------------
 
@@ -142,11 +190,21 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `fullname`, `role`, `created_at`) VALUES
-(2, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'Quản Trị Viên', 'admin', '2026-06-29 02:57:02');
+(2, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'Quản Trị Viên', 'admin', '2026-06-29 02:57:02'),
+(3, 'root', '0052069db1a0017f6a27f27e6dcbb919', 'mphat', 'user', '2026-07-04 11:35:51'),
+(4, 'mphat', '508df4cb2f4d8f80519256258cfb975f', 'mphat', 'user', '2026-07-04 12:45:56');
 
 --
 -- Chỉ mục cho các bảng đã đổ
 --
+
+--
+-- Chỉ mục cho bảng `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `product_id` (`product_id`);
 
 --
 -- Chỉ mục cho bảng `categories`
@@ -185,6 +243,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT cho bảng `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT cho bảng `categories`
 --
 ALTER TABLE `categories`
@@ -194,13 +258,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT cho bảng `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT cho bảng `products`
@@ -212,11 +276,18 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
 --
+
+--
+-- Các ràng buộc cho bảng `cart`
+--
+ALTER TABLE `cart`
+  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 
 --
 -- Các ràng buộc cho bảng `products`

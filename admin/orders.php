@@ -1,5 +1,4 @@
 <?php
-<?php
 require_once 'check_admin.php'; 
 require_once '../config/sys_config.php';
 require_once '../config/database.php';
@@ -10,7 +9,7 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
     exit();
 }
 
-// Lấy danh sách đơn hàng kèm chi tiết món ăn (Sử dụng subquery cực xịn)
+// Lấy danh sách đơn hàng kèm chi tiết món ăn (Sửa lại tên cột cho khớp với database)
 try {
     $sql = "SELECT o.*, 
             (SELECT GROUP_CONCAT(CONCAT(p.name, ' (x', od.quantity, ')') SEPARATOR '<br>') 
@@ -18,7 +17,7 @@ try {
              JOIN products p ON od.product_id = p.id 
              WHERE od.order_id = o.id) as order_items
             FROM orders o 
-            ORDER BY o.order_date DESC";
+            ORDER BY o.created_at DESC";
     $stmt = $conn->query($sql);
     $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
@@ -60,12 +59,12 @@ try {
                             <?php foreach ($orders as $ord): ?>
                                 <tr>
                                     <td class="text-center fw-bold">#<?= $ord['id'] ?></td>
-                                    <td class="fw-bold text-primary"><?= htmlspecialchars($ord['customer_name']) ?></td>
+                                    <td class="fw-bold text-primary"><?= htmlspecialchars($ord['fullname']) ?></td>
                                     <td class="text-center"><?= htmlspecialchars($ord['phone']) ?></td>
                                     <td><?= htmlspecialchars($ord['address']) ?></td>
-                                    <td class="text-danger fw-bold"><?= $ord['order_items'] ?></td>
-                                    <td class="text-center text-danger fw-bold fs-6"><?= number_format($ord['total_price'], 0, ',', '.') ?> đ</td>
-                                    <td class="text-center text-muted"><?= date('d/m/Y H:i', strtotime($ord['order_date'])) ?></td>
+                                    <td class="text-danger fw-bold"><?= $ord['order_items'] ?? 'Chưa có chi tiết' ?></td>
+                                    <td class="text-center text-danger fw-bold fs-6"><?= number_format($ord['total_money'], 0, ',', '.') ?> đ</td>
+                                    <td class="text-center text-muted"><?= date('d/m/Y H:i', strtotime($ord['created_at'])) ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php else: ?>

@@ -4,6 +4,6 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Định nghĩa đường dẫn gốc của dự án (giúp làm link không bị lỗi điều hướng)
-define('BASE_URL', '/web_ban_do_/');
+//  Thêm đúng tên thư mục mẹ "Doancuoiky" vào đường dẫn gốc
+define('BASE_URL', 'http://localhost/web_ban_do_an/');
 ?>

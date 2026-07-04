@@ -81,8 +81,9 @@ try {
             <div class="d-flex justify-content-between align-items-center mb-3 mt-3">
     <h4 class="text-secondary fw-bold m-0">Danh Sách Món Ăn</h4>
     <div>
-        <a href="orders.php" class="btn btn-primary btn-sm fw-bold me-2">🛵 Xem Đơn Hàng Khách Đặt</a>
-        <a href="add_product.php" class="btn btn-success btn-sm fw-bold">+ Thêm Món Mới</a>
+        <a href="../index.php" class="btn btn-outline-dark me-2">⬅ Về Trang Chủ</a>
+        <a href="orders.php" class="btn btn-primary me-2">Xem Đơn Hàng Khách Đặt</a>
+        <a href="add.php" class="btn btn-success">+ Thêm Món Mới</a>
     </div>
 </div>
 

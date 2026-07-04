@@ -1,48 +1,40 @@
 <?php
-// 1. Nhúng config hệ thống VÀ file kết nối database vào
 require_once 'config/sys_config.php';
-require_once 'config/database.php'; // Ní nhớ thêm file kết nối này để xài biến $conn nhé
+require_once 'config/database.php';
 
-// Kiểm tra xem khách hàng có bấm chọn món nào không (dựa vào id truyền lên URL)
+// 1. Phải đăng nhập mới được thêm vào giỏ
+if (!isset($_SESSION['user'])) {
+    $_SESSION['error_cart'] = "Ní ơi, đăng nhập vào mới đặt món được nha!";
+    header('Location: login.php');
+    exit();
+}
+
 if (isset($_GET['id'])) {
-    $id = (int)$_GET['id'];
+    $product_id = (int)$_GET['id'];
+    $user_id = $_SESSION['user']['id']; // Lấy ID của user đang đăng nhập
 
-    // Nếu giỏ hàng (lưu bằng Session) chưa tồn tại, thì tạo một giỏ hàng trống
-    if (!isset($_SESSION['cart'])) {
-        $_SESSION['cart'] = [];
-    }
+    try {
+        // 2. Kiểm tra món này đã có trong database cart của user này chưa
+        $stmt = $conn->prepare("SELECT quantity FROM cart WHERE user_id = ? AND product_id = ?");
+        $stmt->execute([$user_id, $product_id]);
+        $cart_item = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Nếu món ăn này ĐÃ CÓ trong giỏ, thì chỉ cần cộng thêm 1 vào số lượng (không cần truy vấn lại CSDL)
-    if (isset($_SESSION['cart'][$id])) {
-        $_SESSION['cart'][$id]['quantity'] += 1;
-        $_SESSION['success_cart'] = "Đã tăng số lượng món ăn trong giỏ hàng!";
-    } else {
-        // Nếu món này CHƯA CÓ trong giỏ, ta truy vấn CSDL để lấy Tên, Giá, Ảnh của món đó
-        try {
-            $stmt = $conn->prepare("SELECT name, price, image FROM products WHERE id = :id");
-            $stmt->execute(['id' => $id]);
-            $product = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            // Nếu tìm thấy món ăn hợp lệ trong CSDL thì mới thêm vào giỏ
-            if ($product) {
-                $_SESSION['cart'][$id] = [
-                    'name'     => $product['name'],
-                    'price'    => $product['price'],
-                    'image'    => $product['image'],
-                    'quantity' => 1
-                ];
-                $_SESSION['success_cart'] = "Đã thêm món ăn vào giỏ hàng thành công!";
-            } else {
-                $_SESSION['error_cart'] = "Món ăn không tồn tại!";
-            }
-        } catch (PDOException $e) {
-            $_SESSION['error_cart'] = "Lỗi hệ thống: " . $e->getMessage();
+        if ($cart_item) {
+            // Nếu có rồi thì tăng số lượng
+            $stmt = $conn->prepare("UPDATE cart SET quantity = quantity + 1 WHERE user_id = ? AND product_id = ?");
+            $stmt->execute([$user_id, $product_id]);
+            $_SESSION['success_cart'] = "Đã tăng số lượng món ăn trong giỏ hàng!";
+        } else {
+            // Nếu chưa có thì thêm mới vào bảng cart
+            $stmt = $conn->prepare("INSERT INTO cart (user_id, product_id, quantity) VALUES (?, ?, 1)");
+            $stmt->execute([$user_id, $product_id]);
+            $_SESSION['success_cart'] = "Đã thêm món ăn vào giỏ hàng thành công!";
         }
+    } catch (PDOException $e) {
+        $_SESSION['error_cart'] = "Lỗi hệ thống: " . $e->getMessage();
     }
 }
 
-// Xử lý xong thì tự động quay ngược trở lại trang chủ theo đúng ý ní
-// Bấm phát nhảy vào giỏ hàng xem liền cho nóng
 header('Location: cart.php');
 exit();
 ?>
