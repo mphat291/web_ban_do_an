@@ -2,14 +2,38 @@
 require_once 'config/sys_config.php';
 require_once 'config/database.php';
 
-if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
-    header('Location: index.php');
+if (!isset($_SESSION['user']['id'])) {
+    header('Location: login.php');
     exit;
 }
 
-$cart = $_SESSION['cart'];
+$user_id = $_SESSION['user']['id'];
+
+$stmt = $conn->prepare("
+    SELECT c.product_id, c.quantity, p.name, p.price, p.image
+    FROM cart c
+    JOIN products p ON c.product_id = p.id
+    WHERE c.user_id = ?
+");
+$stmt->execute([$user_id]);
+$cart_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+if (empty($cart_items)) {
+    header('Location: cart.php');
+    exit;
+}
+
+$cart = [];
 $total_money = 0;
-foreach ($cart as $item) {
+
+foreach ($cart_items as $item) {
+    $cart[$item['product_id']] = [
+        'name' => $item['name'],
+        'price' => $item['price'],
+        'quantity' => $item['quantity'],
+        'image' => $item['image']
+    ];
+
     $total_money += $item['price'] * $item['quantity'];
 }
 
@@ -29,9 +53,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $conn->beginTransaction();
             $user_id = isset($_SESSION['user']['id']) ? $_SESSION['user']['id'] : null;
 
-            $sql_order = "INSERT INTO orders (user_id, fullname, phone, address, note, total_money, status) VALUES (:user_id, :fullname, :phone, :address, :note, :total_money, 'pending')";
+            $sql_order = "INSERT INTO orders (customer_name, phone, address, total_price) 
+VALUES (:fullname, :phone, :address, :total_money)";
             $stmt_order = $conn->prepare($sql_order);
-            $stmt_order->execute(['user_id' => $user_id, 'fullname' => $fullname, 'phone' => $phone, 'address' => $address, 'note' => $note, 'total_money' => $total_money]);
+            $stmt_order->execute([
+    'fullname' => $fullname,
+    'phone' => $phone,
+    'address' => $address,
+    'total_money' => $total_money
+]);
 
             $order_id = $conn->lastInsertId();
             $sql_detail = "INSERT INTO order_details (order_id, product_id, price, quantity) VALUES (:order_id, :product_id, :price, :quantity)";
@@ -39,9 +69,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             foreach ($cart as $product_id => $item) {
                 $stmt_detail->execute(['order_id' => (int)$order_id, 'product_id' => (int)$product_id, 'price' => (int)$item['price'], 'quantity' => (int)$item['quantity']]);
             }
-            $conn->commit();
-            unset($_SESSION['cart']);
-            $success = true;
+           $stmt_clear = $conn->prepare("DELETE FROM cart WHERE user_id = ?");
+$stmt_clear->execute([$user_id]);
+
+$conn->commit();
+$cart = [];
+$success = true;
         } catch (PDOException $e) {
             $conn->rollBack();
             $error = 'Lỗi hệ thống: ' . $e->getMessage();

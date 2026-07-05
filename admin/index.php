@@ -84,7 +84,7 @@ try {
     <div>
         <a href="../index.php" class="btn btn-outline-dark me-2">⬅ Về Trang Chủ</a>
         <a href="orders.php" class="btn btn-primary me-2">Xem Đơn Hàng Khách Đặt</a>
-        <a href="add.php" class="btn btn-success">+ Thêm Món Mới</a>
+    <a href="add_product.php" class="btn btn-success">+ Thêm Món Mới</a>
     </div>
 </div>
 
