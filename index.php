@@ -23,19 +23,11 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trang Chủ - CaMau Food</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .hero-section {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1200&h=400&fit=crop');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 100px 0;
-        }
-    </style>
+    <link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body class="bg-light">
 
-    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1100; margin-top: 65px;">
+    <div class="toast-container position-fixed top-0 end-0 p-3 home-toast-container">
         <?php if (isset($_SESSION['success_cart'])): ?>
             <div id="indexCartToast" class="toast align-items-center text-white bg-success border-0 shadow" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
                 <div class="d-flex">
@@ -62,7 +54,7 @@ try {
         <div class="text-center mb-5">
             <h2 class="text-warning fw-bold text-uppercase">🔥 MÓN ĂN BÁN CHẠY NHẤT 🔥</h2>
             <p class="text-muted">Những món ăn siêu ngon được cộng đồng CaMau Food săn đón nhiều nhất</p>
-            <hr class="w-25 mx-auto text-warning" style="height: 3px; opacity: 1;">
+            <hr class="w-25 mx-auto text-warning contact-divider">
         </div>
 
         <div class="row g-4">
@@ -73,9 +65,9 @@ try {
                             <span class="position-absolute top-0 start-0 badge bg-danger m-3 px-3 py-2 fs-6 shadow">HOT</span>
                             
                             <?php if (!empty($pro['image']) && file_exists('uploads/' . $pro['image'])): ?>
-                                <img src="uploads/<?= htmlspecialchars($pro['image']) ?>" class="card-img-top" alt="<?= htmlspecialchars($pro['name']) ?>" style="height: 240px; object-fit: cover;">
+                                <img src="uploads/<?= htmlspecialchars($pro['image']) ?>" class="card-img-top home-product-image" alt="<?= htmlspecialchars($pro['name']) ?>">
                             <?php else: ?>
-                                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=500&h=350&fit=crop" class="card-img-top" alt="Ảnh mặc định" style="height: 240px; object-fit: cover;">
+                                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=500&h=350&fit=crop" class="card-img-top home-product-image" alt="Ảnh mặc định">
                             <?php endif; ?>
                             
                             <div class="card-body d-flex flex-column">

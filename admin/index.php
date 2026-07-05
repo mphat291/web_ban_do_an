@@ -59,6 +59,7 @@ try {
     <meta charset="UTF-8">
     <title>Trang Quản Trị - Hệ Thống Bán Đồ Ăn</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/css/style.css" rel="stylesheet">
 </head>
 <body class="bg-light">
     <div class="container mt-5">
@@ -105,7 +106,7 @@ try {
                                     <td><?= $pro['id'] ?></td>
                                     <td>
                                         <?php if (!empty($pro['image'])): ?>
-                                            <img src="../uploads/<?= htmlspecialchars($pro['image']) ?>" style="width: 50px; height: 40px; object-fit: cover;" class="rounded border">
+                                            <img src="../uploads/<?= htmlspecialchars($pro['image']) ?>" class="rounded border admin-product-thumb">
                                         <?php else: ?>
                                             <span class="text-muted">Không ảnh</span>
                                         <?php endif; ?>

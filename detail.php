@@ -37,10 +37,11 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($product['name']) ?> - Chi Tiết Món Ăn</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body class="bg-light d-flex flex-column min-vh-100">
 
-    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1100; margin-top: 65px;">
+    <div class="toast-container position-fixed top-0 end-0 p-3 detail-toast-container">
         <?php if (isset($_SESSION['success_message']) || isset($_GET['success'])): 
             // Lấy câu thông báo từ session hoặc gán mặc định nếu nhận tham số success từ URL
             $msg = isset($_SESSION['success_message']) ? $_SESSION['success_message'] : 'Thành công! Đã tăng số lượng món ăn trong giỏ hàng!';
@@ -89,7 +90,7 @@ try {
                         // Nếu có sản phẩm trong giỏ thì mới hiển thị Badge số lượng màu đỏ
                         if ($total_items > 0): 
                         ?>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.65rem;">
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-badge">
                                 <?= $total_items ?>
                             </span>
                         <?php endif; ?>
@@ -111,13 +112,13 @@ try {
     </nav>
 
     <div class="container my-5 flex-grow-1">
-        <div class="card shadow-sm border-0 p-4 bg-white" style="border-radius: 12px;">
+        <div class="card shadow-sm border-0 p-4 bg-white page-card-rounded">
             <div class="row g-5">
                 <div class="col-12 col-md-6">
                     <?php if (!empty($product['image']) && file_exists('uploads/' . $product['image'])): ?>
-                        <img src="uploads/<?= htmlspecialchars($product['image']) ?>" class="img-fluid rounded shadow-sm w-100" alt="<?= htmlspecialchars($product['name']) ?>" style="max-height: 400px; object-fit: cover;">
+                        <img src="uploads/<?= htmlspecialchars($product['image']) ?>" class="img-fluid rounded shadow-sm w-100 detail-product-image" alt="<?= htmlspecialchars($product['name']) ?>">
                     <?php else: ?>
-                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=600&h=450&fit=crop" class="img-fluid rounded shadow-sm w-100" alt="Ảnh mặc định" style="max-height: 400px; object-fit: cover;">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=600&h=450&fit=crop" class="img-fluid rounded shadow-sm w-100 detail-product-image" alt="Ảnh mặc định">
                     <?php endif; ?>
                 </div>
 
@@ -132,8 +133,8 @@ try {
                     </p>
 
                     <div class="d-grid gap-2 d-md-block">
-                        <a href="add_to_cart.php?id=<?= $product['id'] ?>" class="btn btn-warning text-white btn-lg fw-bold px-5 py-3 shadow-sm me-md-3" style="border-radius: 8px;">Thêm Vào Giỏ Hàng 🛒</a>
-                        <a href="index.php" class="btn btn-outline-secondary btn-lg px-4 py-3" style="border-radius: 8px;">Quay Lại</a>
+                        <a href="add_to_cart.php?id=<?= $product['id'] ?>" class="btn btn-warning text-white btn-lg fw-bold px-5 py-3 shadow-sm me-md-3 detail-action-btn">Thêm Vào Giỏ Hàng 🛒</a>
+                        <a href="index.php" class="btn btn-outline-secondary btn-lg px-4 py-3 detail-action-btn">Quay Lại</a>
                     </div>
                 </div>
             </div>

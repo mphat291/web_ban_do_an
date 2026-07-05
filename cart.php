@@ -57,6 +57,7 @@ $total_money = 0;
     <meta charset="UTF-8">
     <title>Giỏ Hàng Của Bạn</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body class="bg-light d-flex flex-column min-vh-100">
 
@@ -74,7 +75,7 @@ $total_money = 0;
 
         <div class="row g-4">
             <div class="col-12 col-lg-8">
-                <div class="card border-0 shadow-sm p-4 bg-white" style="border-radius: 12px;">
+                <div class="card border-0 shadow-sm p-4 bg-white page-card-rounded">
                     <?php if (!empty($cart)): ?>
                         <div class="table-responsive">
                             <table class="table table-borderless align-middle mb-0">
@@ -82,7 +83,7 @@ $total_money = 0;
                                     <tr>
                                         <th>Món ăn</th>
                                         <th class="text-center">Giá</th>
-                                        <th class="text-center" style="width: 130px;">Số lượng</th>
+                                        <th class="text-center cart-table-qty">Số lượng</th>
                                         <th class="text-center">Tổng cộng</th>
                                         <th class="text-center">Hành động</th>
                                     </tr>
@@ -95,7 +96,7 @@ $total_money = 0;
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <img src="uploads/<?= htmlspecialchars($item['image']) ?>" class="rounded me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                                                <img src="uploads/<?= htmlspecialchars($item['image']) ?>" class="rounded me-3 cart-item-image">
                                                 <span class="fw-bold text-dark"><?= htmlspecialchars($item['name']) ?></span>
                                             </div>
                                         </td>
@@ -135,9 +136,20 @@ $total_money = 0;
             </div>
             
             <div class="col-12 col-lg-4">
-                <div class="card border-0 shadow-sm p-4 bg-white" style="border-radius: 12px;">
+                <div class="card border-0 shadow-sm p-4 bg-white page-card-rounded">
                     <h4 class="fw-bold mb-3 text-dark">Tóm tắt đơn hàng</h4>
                     <?php if (!empty($cart)): ?>
+                        <ul class="list-unstyled mb-3">
+                            <?php foreach ($cart as $item): ?>
+                                <li class="d-flex justify-content-between py-1 border-bottom">
+                                    <span class="text-truncate" style="max-width: 180px;">
+                                        <?= $item['quantity'] ?>x <?= htmlspecialchars($item['name']) ?>
+                                    </span>
+                                    <span><?= number_format($item['price'] * $item['quantity'], 0, ',', '.') ?> đ</span>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+
                         <div class="d-flex justify-content-between my-3 fs-5 pt-2 border-top">
                             <span class="text-muted">Tổng tiền:</span>
                             <span class="text-danger fw-bold fs-4"><?= number_format($total_money, 0, ',', '.') ?> đ</span>
