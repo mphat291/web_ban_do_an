@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="text-center mb-5">
         <h2 class="text-warning fw-bold text-uppercase">📞 LIÊN HỆ VỚI CHÚNG TÔI 📞</h2>
         <p class="text-muted">Mọi thắc mắc hay đóng góp ý kiến vui lòng để lại thông tin bên dưới</p>
-        <hr class="w-25 mx-auto text-warning" style="height: 3px; opacity: 1;">
+        <hr class="w-25 mx-auto text-warning contact-divider">
     </div>
 
     <div class="row g-4">
@@ -32,9 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <p class="text-muted mb-4"><strong>✉️ Email:</strong> 24210501030@student.bdu.edu.vn</p>
                 
                 <!-- Nhúng bản đồ Google Map tĩnh/động địa phận Cà Mau -->
-                <div class="rounded overflow-hidden shadow-sm" style="height: 250px;">
+                <div class="rounded overflow-hidden shadow-sm contact-map-frame">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62900.413723382725!2d105.11504958178128!3d9.174668270830491!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a149a37e5df07d%3A0x6bfe760777fd65bc!2zVHAuIEPDoCBNYXUsIEPDoCBNYXUsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1710000000000!5m2!1svi!2s" 
-                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </div>

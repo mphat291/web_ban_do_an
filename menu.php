@@ -17,6 +17,7 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thực Đơn Món Ngon - CaMau Food</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body class="bg-light d-flex flex-column min-vh-100">
 
@@ -29,7 +30,7 @@ try {
             </div>
             <div class="col-md-6 text-end">
                 <form id="search-form" action="menu.php" method="GET" class="d-flex justify-content-md-end mt-3 mt-md-0" onsubmit="return false;">
-                    <input id="live-search" class="form-control" style="max-width: 300px;" type="search" placeholder="Nhập tên món ăn cần tìm...">
+                    <input id="live-search" class="form-control menu-search-input" type="search" placeholder="Nhập tên món ăn cần tìm...">
                     <a href="menu.php" id="reset-search-btn" class="btn btn-secondary ms-2 d-none">Reset</a>
                 </form>
             </div>
@@ -43,9 +44,9 @@ try {
                     <div class="col food-card-item">
                         <div class="card h-100 border-0 shadow-sm rounded-3 overflow-hidden">
                             <?php if (!empty($p['image']) && file_exists('uploads/' . $p['image'])): ?>
-                                <img src="uploads/<?= htmlspecialchars($p['image']) ?>" class="card-img-top" style="height: 200px; object-fit: cover;">
+                                <img src="uploads/<?= htmlspecialchars($p['image']) ?>" class="card-img-top menu-food-image">
                             <?php else: ?>
-                                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=300&h=200&fit=crop" class="card-img-top" style="height: 200px; object-fit: cover;">
+                                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=300&h=200&fit=crop" class="card-img-top menu-food-image">
                             <?php endif; ?>
                             
                             <div class="card-body d-flex flex-column justify-content-between">
@@ -71,10 +72,10 @@ try {
         </div>
 
         <div id="no-food-alert" class="flex-grow-1 d-none flex-column align-items-center justify-content-center text-center py-5">
-            <div class="mb-4" style="font-size: 5rem;">🔍😢</div>
-            <h3 class="fw-bold text-dark mb-3" style="font-size: 1.85rem;">Không tìm thấy món ăn nào khớp với yêu cầu của ní hết trơn hà!</h3>
+            <div class="mb-4 empty-state-emoji">🔍😢</div>
+            <h3 class="fw-bold text-dark mb-3 empty-state-title">Không tìm thấy món ăn nào khớp với yêu cầu của ní hết trơn hà!</h3>
             <p class="text-muted mb-4 fs-5">Hãy thử tìm kiếm với một từ khóa khác xem sao nhé.</p>
-            <a href="menu.php" class="btn btn-warning btn-lg text-white fw-bold px-4 py-2 shadow-sm" style="border-radius: 8px;">Xem tất cả món ăn</a>
+            <a href="menu.php" class="btn btn-warning btn-lg text-white fw-bold px-4 py-2 shadow-sm empty-state-action">Xem tất cả món ăn</a>
         </div>
     </div>
 

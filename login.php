@@ -63,14 +63,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng Nhập - Hệ Thống Bán Đồ Ăn</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body { background-color: #f8f9fa; display: flex; align-items: center; justify-content: center; height: 100vh; }
-        .login-card { width: 100%; max-width: 400px; border: none; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-    </style>
+    <link href="assets/css/style.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-light d-flex align-items-center justify-content-center auth-page">
 
-<div class="card login-card p-4">
+<div class="card auth-card p-4">
     <div class="card-body">
         <h3 class="text-center mb-4 text-warning fw-bold">🍔 ĐĂNG NHẬP 🍕</h3>
         
@@ -94,8 +91,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <!-- Thêm phần link Đăng ký và Quay lại trang chủ -->
         <div class="text-center mt-4">
-            <p class="mb-2" style="font-size: 14px;">Chưa có tài khoản? <a href="register.php" class="text-warning text-decoration-none fw-bold">Đăng ký tại đây</a></p>
-            <a href="index.php" class="text-muted text-decoration-none" style="font-size: 14px;">&larr; Quay lại trang chủ</a>
+            <p class="mb-2 auth-link-small">Chưa có tài khoản? <a href="register.php" class="text-warning text-decoration-none fw-bold">Đăng ký tại đây</a></p>
+            <a href="index.php" class="text-muted text-decoration-none auth-link-small">&larr; Quay lại trang chủ</a>
         </div>
     </div>
 </div>

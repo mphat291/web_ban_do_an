@@ -54,9 +54,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <title>Sửa Món Ăn</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/css/style.css" rel="stylesheet">
 </head>
 <body class="bg-light">
-    <div class="container mt-5" style="max-width: 500px;">
+    <div class="container mt-5 admin-edit-form-container">
         <div class="card p-4 shadow-sm">
             <h4 class="text-warning fw-bold mb-3">📝 CẬP NHẬT MÓN ĂN</h4>
             <?php if (!empty($error)): ?><div class="alert alert-danger py-1 small"><?= $error ?></div><?php endif; ?>
@@ -65,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="mb-2"><label class="form-label small fw-bold">Giá bán</label><input type="number" class="form-control form-control-sm" name="price" value="<?= $product['price'] ?>" required></div>
                 <div class="mb-2">
                     <label class="form-label small fw-bold">Hình ảnh hiện tại</label>
-                    <?php if(!empty($product['image'])): ?><img src="../uploads/<?= $product['image'] ?>" style="width:60px;display:block;" class="mb-1 rounded border"><?php endif; ?>
+                    <?php if(!empty($product['image'])): ?><img src="../uploads/<?= $product['image'] ?>" class="mb-1 rounded border admin-product-preview"><?php endif; ?>
                     <input type="file" class="form-control form-control-sm" name="image" accept="image/*">
                 </div>
                 <div class="mb-3"><label class="form-label small fw-bold">Mô tả</label><textarea class="form-control form-control-sm" name="description" rows="3"><?= htmlspecialchars($product['description']) ?></textarea></div>

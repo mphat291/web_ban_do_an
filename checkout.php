@@ -55,21 +55,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <title>Thanh Toán - CaMau Food</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body { background-color: #f8f9fa; }
-        .card { border-radius: 15px; border: none; }
-        .btn-warning { background-color: #ffc107; font-weight: bold; }
-    </style>
+    <link href="assets/css/style.css" rel="stylesheet">
 </head>
-<body>
+<body class="checkout-page">
     <div class="container py-5">
         <h2 class="text-center fw-bold mb-5">🛒 Thông Tin Thanh Toán</h2>
         
         <?php if ($success): ?>
-            <div class="card shadow p-5 text-center">
+            <div class="card shadow p-5 text-center checkout-card">
                 <h1 class="text-success mb-3">🎉 Đặt Hàng Thành Công!</h1>
                 <p>Cảm ơn bạn đã ủng hộ CaMau Food.</p>
-                <a href="index.php" class="btn btn-warning mt-3">Quay Lại Trang Chủ</a>
+                <a href="index.php" class="btn checkout-btn-warning mt-3">Quay Lại Trang Chủ</a>
             </div>
         <?php else: ?>
             <?php if (!empty($error)): ?>
@@ -79,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="row g-4">
                 <!-- Form nhập -->
                 <div class="col-md-7">
-                    <div class="card shadow p-4">
+                    <div class="card shadow p-4 checkout-card">
                         <h4 class="mb-3 text-secondary">Thông tin nhận hàng</h4>
                         <form action="checkout.php" method="POST">
                             <div class="mb-3"><label class="form-label">Họ và tên</label><input type="text" name="fullname" class="form-control" required></div>
@@ -94,13 +90,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                             <div class="mb-3"><label class="form-label">Địa chỉ</label><input type="text" name="address" class="form-control" required></div>
                             <div class="mb-3"><label class="form-label">Ghi chú</label><textarea name="note" class="form-control"></textarea></div>
-                            <button type="submit" class="btn btn-warning w-100 py-2 mt-2">XÁC NHẬN ĐẶT HÀNG 🚀</button>
+                            <button type="submit" class="btn checkout-btn-warning w-100 py-2 mt-2">XÁC NHẬN ĐẶT HÀNG 🚀</button>
                         </form>
                     </div>
                 </div>
                 <!-- Tóm tắt đơn -->
                 <div class="col-md-5">
-                    <div class="card shadow p-4 bg-dark text-white">
+                    <div class="card shadow p-4 bg-dark text-white checkout-card">
                         <h4 class="mb-3">Đơn hàng của bạn</h4>
                         <ul class="list-group list-group-flush mb-3">
                             <?php foreach ($cart as $item): ?>
